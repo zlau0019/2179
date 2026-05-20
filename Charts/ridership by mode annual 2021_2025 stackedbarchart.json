@@ -1,0 +1,62 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Annual public Transport Ridership by Mode (2021 - 2025)",
+  "width": 500,
+  "height": 370,
+  "data": {
+    "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
+  },
+  "transform": [
+    {"filter": "year(datum.date) <= 2025"},
+    {"calculate": "year(datum.date)", "as": "year"},
+    {
+      "aggregate": [
+        {"op": "sum", "field": "ridership", "as": "total_ridership"}
+      ],
+      "groupby": ["year", "type"]
+    },
+    {"calculate": "datum.total_ridership / 1000000", "as": "ridership_mil"}
+  ],
+  "mark": {"type": "bar"},
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": {"labelAngle": 0}
+    },
+    "y": {
+      "field": "ridership_mil",
+      "type": "quantitative",
+      "title": "Ridership (million)",
+      "stack": "zero"
+    },
+    "color": {
+      "field": "type",
+      "type": "nominal",
+      "title": "Mode",
+      "scale": {"domain": ["Rail", "Bus"], "range": ["#185FA5", "#D85A30"]}
+    },
+    "tooltip": [
+      {"field": "year", "type": "ordinal", "title": "Year"},
+      {"field": "type", "type": "nominal", "title": "Mode"},
+      {
+        "field": "ridership_mil",
+        "type": "quantitative",
+        "title": "Ridership (M)",
+        "format": ".1f"
+      }
+    ]
+  },
+  "config": {
+    "view": {"stroke": null},
+    "axis": {
+      "gridColor": "#e8e8e8",
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "legend": {"orient": "right", "labelFontSize": 11, "titleFontSize": 12}
+  }
+}
