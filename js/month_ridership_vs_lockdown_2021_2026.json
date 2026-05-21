@@ -1,0 +1,123 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Monthly Ridership and COVID-19 Lockdown Events (2021 - 2026)",
+    "fontWeight": "bold",
+    "fontSize": 14,
+    "color": "#2C2C2A"
+  },
+  "width": 700,
+  "height": 380,
+  "data": {
+    "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
+  },
+  "transform": [
+    {"filter": "datum.type == 'Rail'"},
+    {"calculate": "datum.ridership / 1000000", "as": "ridership_mil"},
+    {
+      "aggregate": [
+        {"op": "sum", "field": "ridership_mil", "as": "total_rail"}
+      ],
+      "groupby": ["date"]
+    }
+  ],
+  "layer": [
+    {
+      "mark": {"type": "rect", "color": "#F5C4B3", "opacity": 0.4},
+      "data": {"values": [{"start": "2021-06-01", "end": "2021-10-01"}]},
+      "encoding": {
+        "x": {"field": "start", "type": "temporal"},
+        "x2": {"field": "end", "type": "temporal"}
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "interpolate": "monotone",
+        "color": "#185FA5",
+        "strokeWidth": 2.5,
+        "point": {"filled": true, "size": 40, "color": "#185FA5"}
+      },
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "title": "Month",
+          "axis": {"format": "%Y", "tickCount": "year"}
+        },
+        "y": {
+          "field": "total_rail",
+          "type": "quantitative",
+          "title": "Total Rail Ridership (millions)",
+          "axis": {"tickCount": 6}
+        },
+        "tooltip": [
+          {
+            "field": "date",
+            "type": "temporal",
+            "title": "Month",
+            "format": "%b %Y"
+          },
+          {
+            "field": "total_rail",
+            "type": "quantitative",
+            "title": "Total Rail (M)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "dy": -10,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#993C1D"
+      },
+      "data": {"values": [{"date": "2021-06-01", "label": "Full lockdown"}]},
+      "encoding": {
+        "x": {"field": "date", "type": "temporal"},
+        "y": {"value": 20},
+        "text": {"field": "label"}
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#185FA5",
+        "strokeWidth": 1.5,
+        "strokeDash": [4, 4]
+      },
+      "data": {"values": [{"date": "2022-04-01"}]},
+      "encoding": {"x": {"field": "date", "type": "temporal"}}
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#185FA5"
+      },
+      "data": {"values": [{"date": "2022-04-01", "label": "Borders reopened"}]},
+      "encoding": {
+        "x": {"field": "date", "type": "temporal"},
+        "y": {"value": 20},
+        "text": {"field": "label"}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "axis": {
+      "gridColor": "#e8e8e8",
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    }
+  }
+}
