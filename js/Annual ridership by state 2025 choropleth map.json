@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Annual Public Transport Ridership by State (2025)",
+  "width": "800",
+  "height": 400,
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/malaysia-states.topojson",
+        "format": {"type": "topojson", "feature": "states"}
+      },
+      "transform": [
+        {
+          "calculate": "'Num Prasarana Service in' + ' ' + datum.properties.Name",
+          "as": "note"
+        }
+      ],
+      "mark": {"type": "geoshape", "fill": "gray", "stroke": "white"},
+      "encoding": {"tooltip": {"field": "note", "type": "nominal"}}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/malaysia-states.topojson",
+        "format": {"type": "topojson", "feature": "states"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.Name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_by_states.csv"
+            },
+            "key": "states",
+            "fields": ["annual_ridership", "operator"]
+          }
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.8},
+      "encoding": {
+        "color": {
+          "field": "annual_ridership",
+          "type": "quantitative",
+          "title": "Annual Ridership",
+          "scale": {
+            "type": "threshold",
+            "domain": [1000000, 20000000, 100000000, 300000000],
+            "range": ["#B5D4F4", "#85B7EB", "#378ADD", "#185FA5", "#0C447C"]
+          },
+          "legend": {"format": ".2s", "title": "Annual Ridership"}
+        },
+        "tooltip": [
+          {"field": "properties.Name", "type": "nominal", "title": "State"},
+          {"field": "operator", "type": "nominal", "title": "Operator"},
+          {
+            "field": "annual_ridership",
+            "type": "quantitative",
+            "title": "Annual Ridership",
+            "format": ","
+          }
+        ]
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}
