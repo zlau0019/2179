@@ -25,7 +25,7 @@
   "vconcat": [
     {
       "title": "Selected Period (drag on lower chart) ",
-      "width": 900,
+      "width": 800,
       "height": 280,
       "mark": {
         "type": "area",
@@ -66,7 +66,7 @@
     },
     {
       "title": "Full Timeline Period (drag me)",
-      "width": 900,
+      "width":800,
       "height": 80,
       "mark": {
         "type": "area",
