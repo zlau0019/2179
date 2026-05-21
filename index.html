@@ -16,7 +16,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -81,6 +81,45 @@
             (Selangor &amp; Kuala Lumpur). Grey states have no Prasarana/MyRapid operated services.
           </p>
           <div id="choropleth-map"></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- section 2 -->
+   <div id="section2" class="section section-alt">
+    <div class="pure-g">
+
+      <div class="pure-u-1">
+        <div class="section-head">
+          <p class="section-num">02</p>
+          <h2>The Rail Network</h2>
+          <p class="section-desc">
+            Rapid Rail operates five lines across the Klang Valley. The Kajang MRT and
+            Kelana Jaya LRT are the busiest, while the Putrajaya MRT is the newest and fastest growing addition to the network.
+          </p>
+        </div>
+      </div>
+
+      <div class="pure-u-1">
+        <div class="card">
+          <h3>Monthly Ridership per Rail Line (2021 - 2026)</h3>
+          <p class="chart-desc">
+            Each panel shows one rail line on the same scale which makes it easy to compare
+            growth and recovery across the network.
+          </p>
+          <div id="small-multiples"></div>
+        </div>
+      </div>
+
+      <div class="pure-u-1">
+        <div class="card">
+          <h3>Exploring Rail Ridership Over Time</h3>
+          <p class="chart-desc">
+            Drag and select a time range on the lower chart to filter the upper chart.
+          </p>
+          <div id="overview-detail"></div>
         </div>
       </div>
 
