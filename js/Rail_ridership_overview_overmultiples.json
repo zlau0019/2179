@@ -5,6 +5,10 @@
     "fontWeight": "bold",
     "fontSize": 14
   },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
   "data": {
     "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
   },
