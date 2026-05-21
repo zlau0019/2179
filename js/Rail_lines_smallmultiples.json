@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Monthly Ridership per Rail Line (2021 - 2026)",
+  "data": {
+    "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
+  },
+  "transform": [
+    {"filter": "datum.type == 'Rail'"},
+    {"calculate": "datum.ridership / 1000000", "as": "ridership_mil"}
+  ],
+  "facet": {
+    "field": "line",
+    "type": "nominal",
+    "title": "MyRapid Rail Lines",
+    "columns": 3
+  },
+  "spec": {
+    "width": 220,
+    "height": 130,
+    "mark": {
+      "type": "line",
+      "interpolate": "monotone",
+      "strokeWidth": 2,
+      "color": "#185FA5"
+    },
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "title": null,
+        "axis": {"format": "%Y", "tickCount": "year", "labelFontSize": 10}
+      },
+      "y": {
+        "field": "ridership_mil",
+        "type": "quantitative",
+        "title": "Ridership (M)",
+        "axis": {"tickCount": 4, "labelFontSize": 10, "titleFontSize": 11}
+      },
+      "tooltip": [
+        {
+          "field": "date",
+          "type": "temporal",
+          "title": "Month",
+          "format": "%b %Y"
+        },
+        {"field": "line", "type": "nominal", "title": "Line"},
+        {
+          "field": "ridership_mil",
+          "type": "quantitative",
+          "title": "Ridership (M)",
+          "format": ".2f"
+        }
+      ]
+    }
+  },
+  "config": {
+    "view": {"stroke": "#DDD9CE"},
+    "header": {
+      "labelFontSize": 12,
+      "labelFont": "Source Sans 3",
+      "labelColor": "#2C2C2A",
+      "titleFontSize": 13
+    },
+    "axis": {"gridColor": "#e8e8e8", "domainColor": "#ccc", "tickColor": "#ccc"}
+  }
+}
