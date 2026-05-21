@@ -34,7 +34,7 @@
     "color": {
       "field": "type",
       "type": "nominal",
-      "title": "Mode",
+      "title": "Mode of Transport",
       "scale": {"domain": ["Rail", "Bus"], "range": ["#185FA5", "#D85A30"]}
     },
     "tooltip": [
