@@ -6,7 +6,7 @@
     "fontSize": 14,
     "color": "#2C2C2A"
   },
-  "width": 700,
+  "width": 500,
   "height": 380,
   "data": {
     "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
