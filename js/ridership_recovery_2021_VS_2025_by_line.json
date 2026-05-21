@@ -1,0 +1,136 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Ridership Recovery: 2021 vs 2025 by Line",
+    "fontWeight": "bold",
+    "fontSize": 14,
+    "color": "#2C2C2A"
+  },
+  "width": 400,
+  "height": 420,
+  "data": {
+    "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
+  },
+  "transform": [
+    {"calculate": "year(datum.date)", "as": "year"},
+    {"filter": "datum.year == 2021 || datum.year == 2025"},
+    {
+      "aggregate": [
+        {"op": "sum", "field": "ridership", "as": "total_ridership"}
+      ],
+      "groupby": ["year", "line", "type"]
+    },
+    {"calculate": "datum.total_ridership / 1000000", "as": "ridership_mil"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "line", "strokeWidth": 2},
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": "Year",
+          "axis": {"labelAngle": 0}
+        },
+        "y": {
+          "field": "ridership_mil",
+          "type": "quantitative",
+          "title": "Annual Ridership (millions)"
+        },
+        "color": {
+          "field": "type",
+          "type": "nominal",
+          "title": "Mode",
+          "scale": {"domain": ["Rail", "Bus"], "range": ["#185FA5", "#D85A30"]}
+        },
+        "detail": {"field": "line", "type": "nominal"},
+        "opacity": {"value": 0.6},
+        "tooltip": [
+          {"field": "line", "type": "nominal", "title": "Line"},
+          {"field": "year", "type": "ordinal", "title": "Year"},
+          {
+            "field": "ridership_mil",
+            "type": "quantitative",
+            "title": "Ridership (M)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true, "size": 80},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "ridership_mil", "type": "quantitative"},
+        "color": {
+          "field": "type",
+          "type": "nominal",
+          "scale": {"domain": ["Rail", "Bus"], "range": ["#185FA5", "#D85A30"]}
+        },
+        "tooltip": [
+          {"field": "line", "type": "nominal", "title": "Line"},
+          {"field": "year", "type": "ordinal", "title": "Year"},
+          {
+            "field": "ridership_mil",
+            "type": "quantitative",
+            "title": "Ridership (M)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "right", "dx": -8, "fontSize": 11},
+      "transform": [{"filter": "datum.year == 2021"}],
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "ridership_mil", "type": "quantitative"},
+        "text": {"field": "line", "type": "nominal"},
+        "color": {
+          "field": "type",
+          "type": "nominal",
+          "scale": {"domain": ["Rail", "Bus"], "range": ["#185FA5", "#D85A30"]}
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum.line == 'Kelana Jaya LRT' || datum.line == 'Kajang MRT' || datum.line == 'KL Bus' || datum.line == 'Penang Bus'",
+            "value": 1
+          },
+          "value": 0
+        }
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "left", "dx": 8, "fontSize": 11},
+      "transform": [{"filter": "datum.year == 2025"}],
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "ridership_mil", "type": "quantitative"},
+        "text": {"field": "line", "type": "nominal"},
+        "color": {
+          "field": "type",
+          "type": "nominal",
+          "scale": {"domain": ["Rail", "Bus"], "range": ["#185FA5", "#D85A30"]}
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum.line == 'Kelana Jaya LRT' || datum.line == 'Kajang MRT' || datum.line == 'KL Bus' || datum.line == 'Penang Bus'",
+            "value": 1
+          },
+          "value": 0
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "axis": {
+      "gridColor": "#e8e8e8",
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "legend": {"orient": "top", "labelFontSize": 12, "titleFontSize": 12}
+  }
+}
