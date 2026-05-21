@@ -25,7 +25,7 @@
   "vconcat": [
     {
       "title": "Selected Period (drag on lower chart) ",
-      "width": "container",
+      "width": 900,
       "height": 280,
       "mark": {
         "type": "area",
