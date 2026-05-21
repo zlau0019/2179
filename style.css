@@ -49,7 +49,7 @@ a {
 
 .section {
   padding: 56px 40px;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
@@ -87,7 +87,7 @@ a {
   border: 1px solid #DDD9CE;
   border-radius: 8px;
   padding: 20px;
-  margin: 0 4px 20px 4px;
+  margin: 0 2px 20px 2px;
 }
 
 .card h3 {
@@ -117,4 +117,5 @@ a {
 #footer a {
   color: #B5D4F4;
 }
+
 
