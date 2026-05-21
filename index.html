@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malaysia Public Transport Ridership Trends</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <div id="hero">
+    <div class="pure-g">
+      <div class="pure-u-1">
+        <p class="hero-label">Malaysia Public Transport</p>
+        <h1>On the Move</h1>
+        <p class="hero-subtitle">
+          How millions of Malaysians travel every day
+          and how a pandemic changed everything.
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="section1" class="section">
+    <div class="pure-g">
+
+
+      <div class="pure-u-1">
+        <div class="section-head">
+          <p class="section-num">01</p>
+          <h2>The Big Picture</h2>
+          <p class="section-desc">
+            Public transport in Malaysia is largely operated by Prasarana Malaysia Berhad which is the parent company of MyRapid,
+            the national public transport infrastructure company. Services spans from
+            rail lines and bus networks across the Klang Valley, Penang, and Kuantan.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="pure-u-1 pure-u-md-1-2">
+        <div class="card">
+          <h3>Monthly Ridership Trend (2021 - 2026)</h3>
+          <p class="chart-desc">
+            Rail ridership is more than bus and continues to grow year on year.
+          </p>
+          <div id="line-chart"></div>
+        </div>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-1-2">
+        <div class="card">
+          <h3>Annual Mode Share (2021 - 2025)</h3>
+          <p class="chart-desc">
+            Rail consistently accounts for the majority of total ridership each year,
+            driven by the ever expanding MRT network.
+          </p>
+          <div id="stacked-bar"></div>
+        </div>
+      </div>
+
+      <div class="pure-u-1">
+        <div class="card">
+          <h3>Ridership by State (2025)</h3>
+          <p class="chart-desc">
+            Prasarana/MyRapid services are heavily concentrated in the Klang Valley
+            (Selangor &amp; Kuala Lumpur). Grey states have no Prasarana/MyRapid operated services.
+          </p>
+          <div id="choropleth-map"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="footer">
+    <div class="pure-g">
+      <div class="pure-u-1">
+        <p>
+          Data sources:
+          <a href="https://myrapid.com.my/bus-train/ridership/" target="_blank">MyRapid Prasarana's Ridership Reports</a>
+          (Prasarana, 2021 - 2026) &amp;
+          <a href="https://data.gov.my/data-catalogue/ridership_headline" target="_blank">data.gov.my</a>
+        </p>
+        <p>Zhile, 35173270</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const BASE = "https://raw.githubusercontent.com/zlau0019/2179/main/js/";
+    const opt  = {actions: false, renderer: "svg"};
+
+    vegaEmbed("#line-chart", BASE + "V2 Total_ridership_2021_2026_Linechart.json", opt);
+    vegaEmbed("#stacked-bar", BASE + "V2 ridership by mode annual 2021_2025 stackedbarchart.json", opt);
+    vegaEmbed("#choropleth-map", BASE + "Annual ridership by state 2025 choropleth map.json", opt);
+  </script>
+
+</body>
+</html>
