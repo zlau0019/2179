@@ -52,6 +52,18 @@ a {
   max-width: 1600px;
   margin: 0 auto;
 }
+/* section 2 */
+.section-alt {
+  background-color: #EEF2F7;
+  max-width: 100%;
+  padding: 56px 0;
+}
+
+.section-alt > .pure-g {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
 
 .section-head {
   margin-bottom: 36px;
@@ -117,5 +129,3 @@ a {
 #footer a {
   color: #B5D4F4;
 }
-
-
