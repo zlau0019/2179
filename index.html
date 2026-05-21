@@ -126,20 +126,6 @@
     </div>
   </div>
 
-  <div id="footer">
-    <div class="pure-g">
-      <div class="pure-u-1">
-        <p>
-          Data sources:
-          <a href="https://myrapid.com.my/bus-train/ridership/" target="_blank">MyRapid Prasarana's Ridership Reports</a>
-          (Prasarana, 2021 - 2026) &amp;
-          <a href="https://data.gov.my/data-catalogue/ridership_headline" target="_blank">data.gov.my</a>
-        </p>
-        <p>Zhile, 35173270</p>
-      </div>
-    </div>
-  </div>
-
   <!-- section 3-->
   <div id="section3" class="section">
     <div class="pure-g">
@@ -172,7 +158,22 @@
       </div>
 
     </div>
+
   </div>
+   <div id="footer">
+    <div class="pure-g">
+      <div class="pure-u-1">
+        <p>
+          Data sources:
+          <a href="https://myrapid.com.my/bus-train/ridership/" target="_blank">MyRapid Prasarana's Ridership Reports</a>
+          (Prasarana, 2021 - 2026) &amp;
+          <a href="https://data.gov.my/data-catalogue/ridership_headline" target="_blank">data.gov.my</a>
+        </p>
+        <p>Zhile, 35173270</p>
+      </div>
+    </div>
+  </div>
+
 
   <script>
     const BASE = "https://raw.githubusercontent.com/zlau0019/2179/main/js/";
@@ -182,7 +183,8 @@
     vegaEmbed("#stacked-bar", BASE + "V2 ridership by mode annual 2021_2025 stackedbarchart.json", opt);
     vegaEmbed("#choropleth-map", BASE + "Annual ridership by state 2025 choropleth map.json", opt);
     vegaEmbed("#small-multiples", BASE + "Rail_lines_smallmultiples.json", opt);
-    vegaEmbed("#overview", BASE + "bus_vs_rail_annual_2021_2025.json", opt);
+    vegaEmbed("#overview", BASE + "Rail_ridership_overview_overmultiples.json", opt);
+    vegaEmbed("#grouped-bar", BASE + "bus_vs_rail_annual_2021_2025.json", opt);
     vegaEmbed("#grouped-bar", BASE + "monthly_ridership_by_line.json", opt);
   </script>
 
