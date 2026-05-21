@@ -1,0 +1,94 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Monthly Ridership by Line (2021 - 2026)",
+    "fontWeight": "bold",
+    "fontSize": 14,
+    "color": "#2C2C2A"
+  },
+  "width": 500,
+  "height": 350,
+  "data": {
+    "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
+  },
+  "params": [
+    {
+      "name": "line_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Kelana Jaya LRT",
+          "Ampang LRT",
+          "KL Monorail",
+          "Kajang MRT",
+          "Putrajaya MRT",
+          "KL Bus",
+          "Penang Bus",
+          "Kuantan Bus"
+        ],
+        "labels": [
+          "Kelana Jaya LRT",
+          "Ampang LRT",
+          "KL Monorail",
+          "Kajang MRT",
+          "Putrajaya MRT",
+          "KL Bus (Rapid KL)",
+          "Penang Bus (Rapid Penang)",
+          "Kuantan Bus (Rapid Kuantan)"
+        ],
+        "name": "Select Line: "
+      },
+      "value": "Kelana Jaya LRT"
+    }
+  ],
+  "transform": [
+    {"filter": "datum.line == line_selection"},
+    {"calculate": "datum.ridership / 1000000", "as": "ridership_mil"}
+  ],
+  "mark": {
+    "type": "area",
+    "interpolate": "monotone",
+    "color": "#185FA5",
+    "opacity": 0.7,
+    "line": {"color": "#0C447C", "strokeWidth": 2}
+  },
+  "encoding": {
+    "x": {
+      "field": "date",
+      "type": "temporal",
+      "title": "Month",
+      "axis": {"format": "%Y", "tickCount": "year"}
+    },
+    "y": {
+      "field": "ridership_mil",
+      "type": "quantitative",
+      "title": "Ridership (millions)",
+      "axis": {"tickCount": 5}
+    },
+    "tooltip": [
+      {
+        "field": "date",
+        "type": "temporal",
+        "title": "Month",
+        "format": "%b %Y"
+      },
+      {"field": "line", "type": "nominal", "title": "Line"},
+      {
+        "field": "ridership_mil",
+        "type": "quantitative",
+        "title": "Ridership (M)",
+        "format": ".2f"
+      }
+    ]
+  },
+  "config": {
+    "view": {"stroke": null},
+    "axis": {
+      "gridColor": "#e8e8e8",
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    }
+  }
+}
