@@ -1,14 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Annual Public Transport Ridership by State (2025)",
-  "width": "800",
+  "width": 800,
   "height": 400,
   "projection": {"type": "equalEarth"},
   "layer": [
     {
       "data": {
         "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/malaysia-states.topojson",
-        "format": {"type": "topojson", "feature": "states"}
+        "format": {"type": "topojson", "feature": "state"}
       },
       "transform": [
         {
