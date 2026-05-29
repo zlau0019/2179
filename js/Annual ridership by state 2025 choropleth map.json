@@ -8,7 +8,7 @@
     {
       "data": {
         "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/malaysia-states.topojson",
-        "format": {"type": "topojson", "feature": "state"}
+        "format": {"type": "topojson", "feature": "states"}
       },
       "transform": [
         {
@@ -29,9 +29,9 @@
           "lookup": "properties.Name",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_by_states.csv"
+              "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_by_state.csv"
             },
-            "key": "states",
+            "key": "state",
             "fields": ["annual_ridership", "operator"]
           }
         }
