@@ -32,7 +32,7 @@
               "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_by_state.csv"
             },
             "key": "state",
-            "fields": ["annual_ridership", "operator"]
+            "fields": ["annual_ridership", "operator "]
           }
         }
       ],
@@ -50,12 +50,12 @@
           "legend": {"format": ".2s", "title": "Annual Ridership"}
         },
         "tooltip": [
-          {"field": "properties.Name", "type": "nominal", "title": "State"},
-          {"field": "operator", "type": "nominal", "title": "Operator"},
+          {"field": "properties.Name", "type": "nominal", "title": "State:"},
+          {"field": "operator ", "type": "nominal", "title": "Operator:"},
           {
             "field": "annual_ridership",
             "type": "quantitative",
-            "title": "Annual Ridership",
+            "title": "Annual Ridership:",
             "format": ","
           }
         ]
