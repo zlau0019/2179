@@ -7,7 +7,18 @@
     "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
   },
   "transform": [
-    {"calculate": "datum.ridership / 1000000", "as": "ridership_mil"}
+    {
+      "calculate": "datum.ridership / 1000000",
+      "as": "ridership_mil"
+    },
+    {
+      "calculate": "indexof(['KL Bus', 'Kuantan Bus', 'Penang Bus', 'Rapid On-Demand'], datum.line) >= 0 ? 'Bus' : 'Rail'",
+      "as": "mode"
+    },
+    {
+      "aggregate": [{"op": "sum", "field": "ridership_mil", "as": "ridership_mil"}],
+      "groupby": ["date", "mode"]
+    }
   ],
   "layer": [
     {
@@ -20,10 +31,21 @@
     },
     {
       "mark": {
+        "type": "rule",
+        "color": "#888888",
+        "strokeDash": [4, 4],
+        "strokeWidth": 1
+      },
+      "data": {"values": [{"date": "2022-04-01"}]},
+      "encoding": {
+        "x": {"field": "date", "type": "temporal"}
+      }
+    },
+    {
+      "mark": {
         "type": "line",
         "interpolate": "monotone",
-        "strokeWidth": 2,
-        "point": {"filled": true, "size": 40}
+        "strokeWidth": 2.5
       },
       "encoding": {
         "x": {
@@ -39,24 +61,18 @@
           "axis": {"tickCount": 6}
         },
         "color": {
-          "field": "line",
+          "field": "mode",
           "type": "nominal",
-          "title": "Line / Operator"
+          "title": "Mode",
+          "scale": {
+            "domain": ["Rail", "Bus"],
+            "range": ["#185FA5", "#D85A30"]
+          }
         },
         "tooltip": [
-          {
-            "field": "date",
-            "type": "temporal",
-            "title": "Month",
-            "format": "%b %Y"
-          },
-          {"field": "line", "type": "nominal", "title": "Line / Operator"},
-          {
-            "field": "ridership_mil",
-            "type": "quantitative",
-            "title": "Ridership (Mil)",
-            "format": ".2f"
-          }
+          {"field": "date", "type": "temporal", "title": "Month", "format": "%b %Y"},
+          {"field": "mode", "type": "nominal", "title": "Mode"},
+          {"field": "ridership_mil", "type": "quantitative", "title": "Ridership (M)", "format": ".1f"}
         ]
       }
     },
@@ -68,10 +84,26 @@
         "fontSize": 11,
         "color": "#993C1D"
       },
-      "data": {"values": [{"date": "2021-08-01", "label": "Pandemic"}]},
+      "data": {"values": [{"date": "2021-08-01", "label": "Full lockdown"}]},
       "encoding": {
         "x": {"field": "date", "type": "temporal"},
         "y": {"value": 20},
+        "text": {"field": "label"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "dy": 0,
+        "fontSize": 11,
+        "color": "#555555"
+      },
+      "data": {"values": [{"date": "2022-04-01", "label": "Borders reopened"}]},
+      "encoding": {
+        "x": {"field": "date", "type": "temporal"},
+        "y": {"value": 30},
         "text": {"field": "label"}
       }
     }
