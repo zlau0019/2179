@@ -1,107 +1,66 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
-    "text": "Rail Ridership Overview (2021 - 2026)",
-    "fontWeight": "bold",
-    "fontSize": 14
-  },
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "title": "Monthly Ridership per Rail Line (2021 - 2026)",
   "data": {
     "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
   },
   "transform": [
     {"filter": "datum.type == 'Rail'"},
-    {"calculate": "datum.ridership / 1000000", "as": "ridership_mil"},
-    {
-      "aggregate": [
-        {"op": "sum", "field": "ridership_mil", "as": "total_rail"}
-      ],
-      "groupby": ["date"]
-    }
+    {"calculate": "datum.ridership / 1000000", "as": "ridership_mil"}
   ],
-  "vconcat": [
-    {
-      "title": "Selected Period (drag on lower chart) ",
-      "width": 1100,
-      "height": 280,
-      "mark": {
-        "type": "area",
-        "interpolate": "monotone",
-        "color": "#185FA5",
-        "opacity": 0.8,
-        "line": {"color": "#0C447C", "strokeWidth": 1.5}
+  "facet": {
+    "field": "line",
+    "type": "nominal",
+    "title": "MyRapid Rail Lines",
+    "columns": 3
+  },
+  "spec": {
+    "width": 220,
+    "height": 130,
+    "mark": {
+      "type": "line",
+      "interpolate": "monotone",
+      "strokeWidth": 2,
+      "color": "#185FA5"
+    },
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "title": null,
+        "axis": {"format": "%Y", "tickCount": "year", "labelFontSize": 10}
       },
-      "encoding": {
-        "x": {
+      "y": {
+        "field": "ridership_mil",
+        "type": "quantitative",
+        "title": "Ridership (M)",
+        "axis": {"tickCount": 4, "labelFontSize": 10, "titleFontSize": 11}
+      },
+      "tooltip": [
+        {
           "field": "date",
           "type": "temporal",
           "title": "Month",
-          "scale": {"domain": {"param": "brush"}},
-          "axis": {"format": "%b %Y", "tickCount": "month", "labelAngle": -30}
+          "format": "%b %Y"
         },
-        "y": {
-          "field": "total_rail",
+        {"field": "line", "type": "nominal", "title": "Line"},
+        {
+          "field": "ridership_mil",
           "type": "quantitative",
-          "title": "Total Rail Ridership (millions)",
-          "axis": {"tickCount": 5}
-        },
-        "tooltip": [
-          {
-            "field": "date",
-            "type": "temporal",
-            "title": "Month",
-            "format": "%b %Y"
-          },
-          {
-            "field": "total_rail",
-            "type": "quantitative",
-            "title": "Total Rail (M)",
-            "format": ".1f"
-          }
-        ]
-      }
-    },
-    {
-      "title": "Full Timeline Period (drag me)",
-      "width":1100,
-      "height": 80,
-      "mark": {
-        "type": "area",
-        "interpolate": "monotone",
-        "color": "#B5D4F4",
-        "line": {"color": "#185FA5", "strokeWidth": 1}
-      },
-      "params": [
-        {"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}
-      ],
-      "encoding": {
-        "x": {
-          "field": "date",
-          "type": "temporal",
-          "title": "Year",
-          "axis": {"format": "%Y", "tickCount": "year"}
-        },
-        "y": {
-          "field": "total_rail",
-          "type": "quantitative",
-          "title": "",
-          "axis": {"tickCount": 3, "labels": false}
+          "title": "Ridership (M)",
+          "format": ".2f"
         }
-      }
+      ]
     }
-  ],
+  },
   "config": {
-    "view": {"stroke": null},
-    "axis": {
-      "gridColor": "#e8e8e8",
-      "domainColor": "#ccc",
-      "tickColor": "#ccc",
-      "labelFontSize": 11,
-      "titleFontSize": 12
+    "view": {"stroke": "#DDD9CE"},
+    "header": {
+      "labelFontSize": 12,
+      "labelFont": "Source Sans 3",
+      "labelColor": "#2C2C2A",
+      "titleFontSize": 13
     },
-    "title": {"fontSize": 13, "color": "#6B6A66", "fontWeight": "normal"}
+    "axis": {"gridColor": "#e8e8e8", "domainColor": "#ccc", "tickColor": "#ccc"}
   }
 }
