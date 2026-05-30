@@ -1,229 +1,107 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Malaysia Public Transport Ridership Trends</title>
-
-  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
-
-  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-
-  <link rel="stylesheet" href="style.css" />
-</head>
-
-<body>
-
-  <div id="hero">
-    <div class="pure-g">
-      <div class="pure-u-1">
-        <p class="hero-label">Malaysia Public Transport Ridership Trends (2021 - 2026)</p>
-        <h1> Going Through Recovery</h1>
-        <p class="hero-subtitle">
-          How millions of Malaysians travel every day
-          and how a pandemic changed the network.
-        </p>
-      </div>
-    </div>
-  </div>
-
-
-  <div id="section1" class="section">
-    <div class="pure-g">
-
-
-      <div class="pure-u-1">
-        <div class="section-head">
-          <p class="section-num">01</p>
-          <h2>The Big Picture</h2>
-          <p class="section-desc">
-            Public transport in Malaysia is largely operated by Prasarana Malaysia Berhad which is the parent company of MyRapid,
-            the national public transport infrastructure company. Services spans from
-            rail lines and bus networks across the Klang Valley, Penang, and Kuantan.
-          </p>
-        </div>
-      </div>
-
-
-      <div class="pure-u-1 pure-u-md-1-2">
-        <div class="card">
-          <h3>Rail ridership ship has nearly doubled since 2021</h3>
-          <p class="chart-desc">
-            Rail ridership is more than bus and continues to grow year on year.
-          </p>
-          <div id="line-chart"></div>
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2">
-        <div class="card">
-          <h3>Rail's share total ridership has grown every year</h3>
-          <p class="chart-desc">
-            Rail consistently accounts for the majority of total ridership each year,
-            driven by the ever expanding MRT network.
-          </p>
-          <div id="stacked-bar"></div>
-        </div>
-      </div>
-
-      <div class="pure-u-1">
-        <div class="card">
-          <h3>Klang Valley accounts for nearly all Rapid/Presarana ridership</h3>
-          <p class="chart-desc">
-            Prasarana/MyRapid services are heavily concentrated in the Klang Valley
-            (Selangor &amp; Kuala Lumpur). Grey states have no Prasarana/MyRapid operated services.
-          </p>
-          <div id="choropleth-map"></div>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-  <!-- section 2 -->
-   <div id="section2" class="section section-alt">
-    <div class="pure-g">
-
-      <div class="pure-u-1">
-        <div class="section-head">
-          <p class="section-num">02</p>
-          <h2>The Rail Network</h2>
-          <p class="section-desc">
-            Rapid Rail operates five lines across the Klang Valley. The Kajang MRT and
-            Kelana Jaya LRT are the busiest, while the Putrajaya MRT is the newest and fastest growing addition to the network.
-          </p>
-        </div>
-      </div>
-
-      <div class="pure-u-1">
-        <div class="card">
-          <h3>Every rail line grew with Putrajaya MRT growing the fastest</h3>
-          <p class="chart-desc">
-            Each panel shows one rail line on the same scale which makes it easy to compare
-            growth and recovery across the network.
-          </p>
-          <div id="small-multiples"></div>
-        </div>
-      </div>
-
-      <div class="pure-u-1">
-        <div class="card">
-          <h3>Exploring Rail Ridership Over Time</h3>
-          <p class="chart-desc">
-            Drag and select a time range on the lower chart to filter the upper chart.
-          </p>
-          <div id="overview"></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- section 3-->
-  <div id="section3" class="section">
-    <div class="pure-g">
-
-      <div class="pure-u-1">
-        <div class="section-head">
-          <p class="section-num">03</p>
-          <h2>Bus &amp; Other Modes</h2>
-          <p class="section-desc">
-            While rail dominates ridership in the Klang Valley than other modes, bus services remain very important especially in Penang and Kuantan where there is no rail network.
-            Bus ridership has grown steadily since the pandemic.
-          </p>
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2">
-        <div class="card">
-          <h3>Bus vs Rail Annual Ridership (2021 - 2025), Rail carries rougly Three Times more passengers than bus each year</h3>
-          <p class="chart-desc">Rail ridership far exceeds bus</p>
-          <div id="grouped-bar"></div>
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2">
-        <div class="card">
-          <h3>Exploring each operator's ridership since 2021</h3>
-          <p class="chart-desc">Use the dropdown to see ridership trends for each individual rail line or bus operator.</p>
-          <div id="area-chart"></div>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-  <!--section 4-->
-   <div id="section4" class="section section-alt">
-    <div class="pure-g">
-
-      <div class="pure-u-1">
-        <div class="section-head">
-          <p class="section-num">04</p>
-          <h2>COVID-19 Impact &amp; Recovery</h2>
-          <p class="section-desc">
-            Malaysia's lock down in 2021 brought ridership to its lowest recorded levels.
-            By 2025, every rail line had more than doubled its pre vaccination ridership,
-            which is one of the fastest transport recoveries in Southeast Asia. Not bad eh, Prasarana.
-          </p>
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2">
-        <div class="card">
-          <h3>Monthly Ridership with Lockdown Events (2021 - 2026), Ridership almost shutdowned during the 2021 lockdown and then got back up swiftly</h3>
-          <p class="chart-desc">The shaded region marks the full lockdown period in 2021 when ridership hit its lowest point.</p>
-          <div id="annotated-line"></div>
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2">
-        <div class="card">
-          <h3>Ridership Recovery: 2021 vs 2025 by Line. Every line more than tripled riderhip</h3>
-          <p class="chart-desc">Each line shows how much ridership has grown from the lockdown year (2021) to the recovery year (2025).</p>
-          <div id="slope-plot"></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-   <div id="footer">
-    <div class="pure-g">
-      <div class="pure-u-1">
-        <p>
-          Data sources:
-          <a href="https://myrapid.com.my/bus-train/ridership/" target="_blank">MyRapid Prasarana's Ridership Reports</a>
-          (Prasarana, 2021 - 2026) &amp;
-          <a href="https://data.gov.my/data-catalogue/ridership_headline" target="_blank">data.gov.my</a>
-        </p>
-        <p>Zhile, 35173270</p>
-      </div>
-    </div>
-  </div>
-
-
-  <script>
-    const BASE = "https://raw.githubusercontent.com/zlau0019/2179/main/js/";
-    const opt  = {actions: false, renderer: "svg"};
-
-    vegaEmbed("#line-chart", BASE + "V2 Total_ridership_2021_2026_Linechart.json", opt);
-    vegaEmbed("#stacked-bar", BASE + "V2 ridership by mode annual 2021_2025 stackedbarchart.json", opt);
-    vegaEmbed("#choropleth-map", BASE + "Annual ridership by state 2025 choropleth map.json", opt);
-    vegaEmbed("#small-multiples", BASE + "Rail_lines_smallmultiples.json", opt);
-    vegaEmbed("#overview", BASE + "Rail_ridership_overview_selected.json", opt);
-    vegaEmbed("#grouped-bar", BASE + "bus_vs_rail_annual_2021_2025.json", opt);
-    vegaEmbed("#area-chart", BASE + "monthly_ridership_by_line.json", opt);
-    vegaEmbed("#annotated-line", BASE + "month_ridership_vs_lockdown_2021_2026.json", opt);
-    vegaEmbed("#slope-plot", BASE + "ridership_recovery_2021_VS_2025_by_line.json", opt);
-  </script>
-
-</body>
-</html>
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Rail Ridership Overview (2021 - 2026)",
+    "fontWeight": "bold",
+    "fontSize": 14
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
+  },
+  "transform": [
+    {"filter": "datum.type == 'Rail'"},
+    {"calculate": "datum.ridership / 1000000", "as": "ridership_mil"},
+    {
+      "aggregate": [
+        {"op": "sum", "field": "ridership_mil", "as": "total_rail"}
+      ],
+      "groupby": ["date"]
+    }
+  ],
+  "vconcat": [
+    {
+      "title": "Selected Period (drag on lower chart) ",
+      "width": 1400,
+      "height": 280,
+      "mark": {
+        "type": "area",
+        "interpolate": "monotone",
+        "color": "#185FA5",
+        "opacity": 0.8,
+        "line": {"color": "#0C447C", "strokeWidth": 1.5}
+      },
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "title": "Month",
+          "scale": {"domain": {"param": "brush"}},
+          "axis": {"format": "%b %Y", "tickCount": "month", "labelAngle": -30}
+        },
+        "y": {
+          "field": "total_rail",
+          "type": "quantitative",
+          "title": "Total Rail Ridership (millions)",
+          "axis": {"tickCount": 5}
+        },
+        "tooltip": [
+          {
+            "field": "date",
+            "type": "temporal",
+            "title": "Month",
+            "format": "%b %Y"
+          },
+          {
+            "field": "total_rail",
+            "type": "quantitative",
+            "title": "Total Rail (M)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "title": "Full Timeline Period (drag me)",
+      "width":1400,
+      "height": 80,
+      "mark": {
+        "type": "area",
+        "interpolate": "monotone",
+        "color": "#B5D4F4",
+        "line": {"color": "#185FA5", "strokeWidth": 1}
+      },
+      "params": [
+        {"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}
+      ],
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "title": "Year",
+          "axis": {"format": "%Y", "tickCount": "year"}
+        },
+        "y": {
+          "field": "total_rail",
+          "type": "quantitative",
+          "title": "",
+          "axis": {"tickCount": 3, "labels": false}
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "axis": {
+      "gridColor": "#e8e8e8",
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "labelFontSize": 11,
+      "titleFontSize": 12
+    },
+    "title": {"fontSize": 13, "color": "#6B6A66", "fontWeight": "normal"}
+  }
+}
