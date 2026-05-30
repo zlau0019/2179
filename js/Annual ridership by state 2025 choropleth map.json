@@ -1,66 +1,107 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Annual Public Transport Ridership by State (2025)",
-  "width": 800,
-  "height": 400,
-  "projection": {"type": "equalEarth"},
-  "layer": [
+  "title": {
+    "text": "Rail Ridership Overview (2021 - 2026)",
+    "fontWeight": "bold",
+    "fontSize": 14
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
+  },
+  "transform": [
+    {"filter": "datum.type == 'Rail'"},
+    {"calculate": "datum.ridership / 1000000", "as": "ridership_mil"},
     {
-      "data": {
-        "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/malaysia-states.topojson",
-        "format": {"type": "topojson", "feature": "states"}
-      },
-      "transform": [
-        {
-          "calculate": "'Num Prasarana Service in' + ' ' + datum.properties.Name",
-          "as": "note"
-        }
+      "aggregate": [
+        {"op": "sum", "field": "ridership_mil", "as": "total_rail"}
       ],
-      "mark": {"type": "geoshape", "fill": "gray", "stroke": "white"},
-      "encoding": {"tooltip": {"field": "note", "type": "nominal"}}
-    },
+      "groupby": ["date"]
+    }
+  ],
+  "vconcat": [
     {
-      "data": {
-        "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/malaysia-states.topojson",
-        "format": {"type": "topojson", "feature": "states"}
+      "title": "Selected Period (drag on lower chart) ",
+      "width": 1400,
+      "height": 280,
+      "mark": {
+        "type": "area",
+        "interpolate": "monotone",
+        "color": "#185FA5",
+        "opacity": 0.8,
+        "line": {"color": "#0C447C", "strokeWidth": 1.5}
       },
-      "transform": [
-        {
-          "lookup": "properties.Name",
-          "from": {
-            "data": {
-              "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_by_state.csv"
-            },
-            "key": "state",
-            "fields": ["annual_ridership", "operator "]
-          }
-        }
-      ],
-      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.8},
       "encoding": {
-        "color": {
-          "field": "annual_ridership",
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "title": "Month",
+          "scale": {"domain": {"param": "brush"}},
+          "axis": {"format": "%b %Y", "tickCount": "month", "labelAngle": -30}
+        },
+        "y": {
+          "field": "total_rail",
           "type": "quantitative",
-          "title": "Annual Ridership",
-          "scale": {
-            "type": "threshold",
-            "domain": [1000000, 20000000, 100000000, 300000000],
-            "range": ["#B5D4F4", "#85B7EB", "#378ADD", "#185FA5", "#0C447C"]
-          },
-          "legend": {"format": ".2s", "title": "Annual Ridership"}
+          "title": "Total Rail Ridership (millions)",
+          "axis": {"tickCount": 5}
         },
         "tooltip": [
-          {"field": "properties.Name", "type": "nominal", "title": "State:"},
-          {"field": "operator ", "type": "nominal", "title": "Operator:"},
           {
-            "field": "annual_ridership",
+            "field": "date",
+            "type": "temporal",
+            "title": "Month",
+            "format": "%b %Y"
+          },
+          {
+            "field": "total_rail",
             "type": "quantitative",
-            "title": "Annual Ridership:",
-            "format": ","
+            "title": "Total Rail (M)",
+            "format": ".1f"
           }
         ]
       }
+    },
+    {
+      "title": "Full Timeline Period (drag me)",
+      "width":1400,
+      "height": 80,
+      "mark": {
+        "type": "area",
+        "interpolate": "monotone",
+        "color": "#B5D4F4",
+        "line": {"color": "#185FA5", "strokeWidth": 1}
+      },
+      "params": [
+        {"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}
+      ],
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "title": "Year",
+          "axis": {"format": "%Y", "tickCount": "year"}
+        },
+        "y": {
+          "field": "total_rail",
+          "type": "quantitative",
+          "title": "",
+          "axis": {"tickCount": 3, "labels": false}
+        }
+      }
     }
   ],
-  "config": {"view": {"stroke": null}}
+  "config": {
+    "view": {"stroke": null},
+    "axis": {
+      "gridColor": "#e8e8e8",
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "labelFontSize": 11,
+      "titleFontSize": 12
+    },
+    "title": {"fontSize": 13, "color": "#6B6A66", "fontWeight": "normal"}
+  }
 }
