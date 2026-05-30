@@ -131,3 +131,13 @@ a {
 #footer a {
   color: #B5D4F4;
 }
+
+/* Equal height for the cards*/
+.pure-u-md-1-2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.pure-u-md-1-2 .card {
+  flex: 1;
+}
