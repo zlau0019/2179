@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Annual Public Transport Ridership by State (2025)",
-  "width": 1400,
+  "width": 1390,
   "height": 400,
   "projection": {"type": "equalEarth"},
   "layer": [
