@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Malaysia Rail Ridership Seasonal Heatmap (2021 - 2025)",
-  "width": 1350,
+  "width": 1339,
   "height": 180,
   "data": {
     "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
