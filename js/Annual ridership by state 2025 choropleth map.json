@@ -8,7 +8,7 @@
     {
       "data": {
         "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/malaysia-states.topojson",
-        "format": {"type": "topojson", "feature": "state"}
+        "format": {"type": "topojson", "feature": "states"}
       },
       "transform": [
         {
@@ -22,7 +22,7 @@
     {
       "data": {
         "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/malaysia-states.topojson",
-        "format": {"type": "topojson", "feature": "state"}
+        "format": {"type": "topojson", "feature": "states"}
       },
       "transform": [
         {
@@ -31,8 +31,8 @@
             "data": {
               "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_by_state.csv"
             },
-            "key": "states",
-            "fields": ["annual_ridership", "operator"]
+            "key": "state",
+            "fields": ["annual_ridership", "operator "]
           }
         }
       ],
@@ -51,7 +51,7 @@
         },
         "tooltip": [
           {"field": "properties.Name", "type": "nominal", "title": "State"},
-          {"field": "operator", "type": "nominal", "title": "Operator"},
+          {"field": "operator ", "type": "nominal", "title": "Operator"},
           {
             "field": "annual_ridership",
             "type": "quantitative",
