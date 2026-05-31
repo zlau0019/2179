@@ -1,0 +1,91 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Malaysia Rail Ridership Seasonal Heatmap (2021 - 2025)",
+  "width": 500,
+  "height": 180,
+  "data": {
+    "url": "https://raw.githubusercontent.com/zlau0019/2179/main/dataset/ridership_myrapid.csv"
+  },
+  "transform": [
+    {
+      "filter": "indexof(['KL Bus', 'Kuantan Bus', 'Penang Bus', 'Rapid On-Demand'], datum.line) < 0"
+    },
+    {
+      "filter": "year(datum.date) <= 2025"
+    },
+    {
+      "calculate": "datum.ridership / 1000000",
+      "as": "ridership_mil"
+    }
+  ],
+  "mark": {
+    "type": "rect",
+    "cornerRadius": 2
+  },
+  "encoding": {
+    "x": {
+      "timeUnit": "month",
+      "field": "date",
+      "type": "ordinal",
+      "title": "Month",
+      "axis": {
+        "labelAngle": 0,
+        "format": "%b",
+        "labelFontSize": 12,
+        "titleFontSize": 13
+      }
+    },
+    "y": {
+      "timeUnit": "year",
+      "field": "date",
+      "type": "ordinal",
+      "title": "Year",
+      "sort": "descending",
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 13
+      }
+    },
+    "color": {
+      "aggregate": "sum",
+      "field": "ridership_mil",
+      "type": "quantitative",
+      "title": "Ridership (M)",
+      "scale": {
+        "scheme": "blues"
+      },
+      "legend": {
+        "orient": "right",
+        "labelFontSize": 11,
+        "titleFontSize": 12,
+        "gradientLength": 120
+      }
+    },
+    "tooltip": [
+      {
+        "timeUnit": "yearmonth",
+        "field": "date",
+        "type": "temporal",
+        "title": "Month",
+        "format": "%b %Y"
+      },
+      {
+        "aggregate": "sum",
+        "field": "ridership_mil",
+        "type": "quantitative",
+        "title": "Total Rail Ridership (M)",
+        "format": ".1f"
+      }
+    ]
+  },
+  "config": {
+    "view": {"stroke": null},
+    "axis": {
+      "gridColor": "#e8e8e8",
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    }
+  }
+}
